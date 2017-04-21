@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mkdir $HOME/.beersmith2
 docker run -ti --rm -e DISPLAY=$DISPLAY -u $UID:`id -g $USER` \
     -v $HOME/.beersmith2:/home/beersmith2/.beersmith2 \
     -v $HOME/Documents:/home/beersmith2/Documents \
