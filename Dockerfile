@@ -1,11 +1,14 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-ADD https://s3.amazonaws.com/beersmith2-3/BeerSmith-2.3.12_amd64.deb /tmp/
+ADD https://s3.amazonaws.com/beersmith-3/BeerSmith-3.0.9_amd64.deb /tmp/
+RUN useradd -ms /bin/bash beersmith3
 RUN apt-get update && \
-  apt-get install -y /tmp/BeerSmith-2.3.12_amd64.deb && \
+  apt-get install -y ca-certificates /tmp/BeerSmith-3.0.9_amd64.deb && \
   apt-get clean && \
-  mkdir -p /home/beersmith2/.beersmith2 && \
-  chmod 777 -R /home/beersmith2
+  update-ca-certificates
+RUN \
+  mkdir -p /home/beersmith3/.beersmith3 && \
+  chmod 777 -R /home/beersmith3
 
-ENV HOME /home/beersmith2
-CMD /usr/bin/beersmith2
+USER beersmith3
+CMD /usr/bin/beersmith3
